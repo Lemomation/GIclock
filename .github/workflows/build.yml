@@ -20,9 +20,13 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
         
-    - name: Install Capacitor
-      run: npm install -g @capacitor/cli @capacitor/core
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install Capacitor Android
+      run: npm install @capacitor/android
       
     - name: Create capacitor.config.json
       run: |
@@ -35,9 +39,6 @@ jobs:
         }
         EOF
         
-    - name: Add Android platform
-      run: npx cap add android
-      
     - name: Sync Capacitor
       run: npx cap sync
       
