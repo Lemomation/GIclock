@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GIclock - Study with Teyvat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="gems-display">
+        <span class="gem-icon">💎</span>
+        <span id="gem-count">0</span>
+      </div>
+      <div class="fate-display">
+        <span class="fate-icon">🎯</span>
+        <span id="fate-count">0</span>
+      </div>
+    </div>
+
+    <!-- Main Timer Area -->
+    <div class="timer-section">
+      <div class="timer-container" id="timer-container">
+        <div class="timer-ring" id="timer-ring">
+          <svg class="timer-svg" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="90" class="timer-bg"></circle>
+            <circle cx="100" cy="100" r="90" class="timer-progress" id="progress-circle"></circle>
+          </svg>
+          <div class="timer-display">
+            <div id="timer-text">25:00</div>
+            <div id="mode-label" class="mode-label">Pomodoro</div>
+          </div>
+        </div>
+        
+        <div class="timer-controls">
+          <button class="btn-primary" id="start-btn">Start</button>
+          <button class="btn-secondary" id="reset-btn">Reset</button>
+        </div>
+      </div>
+
+      <!-- Active Companion -->
+      <div class="active-companion" id="active-companion" style="display: none;">
+        <img id="companion-pfp" src="" alt="Companion">
+        <div class="companion-info">
+          <div class="companion-name" id="companion-name">-</div>
+          <div class="friendship-bar">
+            <div class="friendship-fill" id="friendship-fill"></div>
+          </div>
+          <div class="friendship-text" id="friendship-text">Lv. 1</div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-value" id="sessions-today">0</div>
+          <div class="stat-label">Sessions</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="total-gems">0</div>
+          <div class="stat-label">Total Gems</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="streak">0</div>
+          <div class="stat-label">Day Streak</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="timer">
+        <span class="nav-icon">⏱️</span>
+        <span>Study</span>
+      </button>
+      <button class="nav-item" data-tab="banner">
+        <span class="nav-icon">🎊</span>
+        <span>Pull</span>
+      </button>
+      <button class="nav-item" data-tab="roster">
+        <span class="nav-icon">👥</span>
+        <span>Companions</span>
+      </button>
+      <button class="nav-item" data-tab="settings">
+        <span class="nav-icon">⚙️</span>
+        <span>Settings</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Banner Modal -->
+  <div class="modal" id="banner-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('banner-modal')">&times;</button>
+      <div class="banner-container">
+        <img id="banner-image" src="" alt="Banner">
+        <div class="banner-info">
+          <h2 id="banner-title">Columbina</h2>
+          <p>5★ Hydro</p>
+        </div>
+      </div>
+      <div class="pull-options">
+        <button class="btn-pull" id="pull-1">Pull ×1 (160 💎)</button>
+        <button class="btn-pull btn-pull-multi" id="pull-10">Pull ×10 (1600 💎)</button>
+      </div>
+      <div class="pity-info">
+        <div class="pity-bar">
+          <div class="pity-fill" id="pity-fill" style="width: 0%"></div>
+        </div>
+        <span id="pity-count">0/90</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roster Modal -->
+  <div class="modal" id="roster-modal">
+    <div class="modal-content roster-grid" id="roster-grid">
+      <button class="close-btn" onclick="closeModal('roster-modal')">&times;</button>
+      <!-- Character cards injected here -->
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal" id="settings-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('settings-modal')">&times;</button>
+      <h2>Settings</h2>
+      <div class="setting-item">
+        <label>Pomodoro Duration (min)</label>
+        <input type="number" id="pomodoro-time" value="25" min="1" max="60">
+      </div>
+      <div class="setting-item">
+        <label>Short Break (min)</label>
+        <input type="number" id="short-break" value="5" min="1" max="15">
+      </div>
+      <div class="setting-item">
+        <label>Long Break (min)</label>
+        <input type="number" id="long-break" value="15" min="1" max="30">
+      </div>
+      <div class="setting-item">
+        <label>Gems per minute</label>
+        <input type="number" id="gems-per-min" value="1" min="1" max="10">
+      </div>
+      <button class="btn-primary" onclick="saveSettings()">Save</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
